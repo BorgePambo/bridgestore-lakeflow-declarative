@@ -11,7 +11,7 @@ O fluxo inclui ingestão de dados, transformação em camadas Silver, e criaçã
 <img width="990" height="281" alt="imagem_etlpng" src="https://github.com/user-attachments/assets/066697b9-f2ed-4ca5-965b-0d3296b4abbc" />
 
 ----
-Arquitetura Funcional do Pipeline
+### Arquitetura Funcional do Pipeline
 
               MySQL (Transacional)
                      │
@@ -40,7 +40,7 @@ Arquitetura Funcional do Pipeline
 
 
 
-Fluxo Funcional
+### Fluxo Funcional
 
    1-Bronze Layer: dados brutos do MySQL replicados via Airbyte.
     
