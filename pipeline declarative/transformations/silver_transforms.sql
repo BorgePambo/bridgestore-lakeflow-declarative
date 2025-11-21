@@ -15,8 +15,7 @@ SELECT
     CAST(phone AS STRING) AS phone,
     CAST(city AS STRING) AS city,
     CAST(state AS STRING) AS state,
-    CAST(zip_code AS STRING) AS zip_code,
-    _airbyte_extracted_at AS extracted_at
+    CAST(zip_code AS STRING) AS zip_code
 FROM STREAM(bridgestore.bronze.customers);
 
 -------------------------------------------
@@ -31,8 +30,7 @@ COMMENT "Silver Tabela de Categorias"
 AS
 SELECT 
     CAST(category_id AS INT) AS category_id,
-    CAST(name AS STRING) AS category_name,
-    _airbyte_extracted_at AS extracted_at
+    CAST(name AS STRING) AS category_name
 FROM STREAM(bridgestore.bronze.categories);
 
 -------------------------------------------
@@ -53,8 +51,7 @@ SELECT
     CAST(stock AS INT) AS stock,
     CAST(model_year AS INT) AS model_year,
     CAST(category_id AS INT) AS category_id,
-    CAST(description AS STRING) AS description,
-    _airbyte_extracted_at AS extracted_at
+    CAST(description AS STRING) AS description
 FROM STREAM(bridgestore.bronze.products);
 
 -------------------------------------------
@@ -75,8 +72,7 @@ SELECT
     CAST(street AS STRING) AS street,
     CAST(city AS STRING) AS city,
     CAST(state AS STRING) AS state,
-    CAST(zip_code AS STRING) AS zip_code,
-    _airbyte_extracted_at AS extracted_at
+    CAST(zip_code AS STRING) AS zip_code
 FROM STREAM(bridgestore.bronze.stores);
 
 -------------------------------------------
@@ -95,8 +91,7 @@ SELECT
     CAST(customer_id AS INT) AS customer_id,
     CAST(order_date AS DATE) AS order_date,
     CAST(shipped_date AS DATE) AS shipped_date,
-    CAST(status AS STRING) AS status,
-    _airbyte_extracted_at AS extracted_at
+    CAST(status AS STRING) AS status
 FROM STREAM(bridgestore.bronze.orders);
 
 -------------------------------------------
@@ -116,8 +111,7 @@ SELECT
     CAST(product_id AS INT) AS product_id,
     CAST(quantity AS INT) AS quantity,
     CAST(unit_price AS DECIMAL(10,2)) AS unit_price,
-    CAST(discount AS DECIMAL(5,2)) AS discount,
-    _airbyte_extracted_at AS extracted_at
+    CAST(discount AS DECIMAL(5,2)) AS discount
 FROM STREAM(bridgestore.bronze.order_details);
 
 -------------------------------------------
