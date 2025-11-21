@@ -3,4 +3,4 @@ Pipeline Lakehouse no Databricks para o e-commerce Bridgestore, com ingestão vi
 
 --
 
-<img width="990" height="281" alt="etl_da" src="https://github.com/user-attachments/assets/092d2160-bef3-4ffa-8ab7-aac0794da08a" />
+<img width="990" height="281" alt="imagem_etlpng" src="https://github.com/user-attachments/assets/066697b9-f2ed-4ca5-965b-0d3296b4abbc" />
