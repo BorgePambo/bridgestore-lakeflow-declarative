@@ -64,3 +64,12 @@ O fluxo inclui ingestão de dados, transformação em camadas Silver, e criaçã
         Consumo: Dashboards em Databricks SQL ou Power BI
 
 
+### Conclusão
+
+    Este projeto implementa um pipeline de dados moderno e robusto, unindo Airbyte, Delta Lake e Databricks para construir um Lakehouse completo com camadas Bronze, Silver e Gold.
+    A arquitetura garante ingestão confiável, transformações escaláveis e dados altamente otimizados para análises e BI.
+    
+    Do banco transacional MySQL até a camada Gold com visões materializadas, o fluxo foi projetado seguindo boas práticas de engenharia de dados, garantindo qualidade, governança e performance.
+    O resultado final é uma estrutura clara, modular e pronta para servir relatórios, dashboards e aplicações analíticas.
+
+
