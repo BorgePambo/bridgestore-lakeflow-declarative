@@ -1,8 +1,8 @@
 # bridgestore-lakeflow-declarative
 Pipeline Lakehouse no Databricks para o e-commerce Bridgestore, com ingestão via Airbyte e organização Bronze/Silver/Gold.
 
-BridgeStore Lakehouse Project
-📌 Visão Geral
+### BridgeStore Lakehouse Project
+📌   Visão Geral
 
 Este projeto tem como objetivo criar um pipeline de dados para análise de vendas da BridgeStore, utilizando arquitetura Lakehouse no Databricks.
 O fluxo inclui ingestão de dados, transformação em camadas Silver, e criação de métricas agregadas em camada Gold para análises de negócios.
