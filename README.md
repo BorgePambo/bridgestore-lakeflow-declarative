@@ -12,31 +12,34 @@ O fluxo inclui ingestão de dados, transformação em camadas Silver, e criaçã
 
 ----
 ### Arquitetura Funcional do Pipeline
-
+              
               MySQL (Transacional)
                      │
                      ▼
-                 Airbyte (Ingestão)
+              Airbyte (Ingestão)
                      │
-                     ▼
-                 Bronze Layer (Delta Lake)
-                     │
-                     ▼
-                 Databricks / Delta Lake (Silver Layer)
-                     │
-                     ├─ Limpeza: remover pedidos inválidos
-                     ├─ Enriquecimento: joins entre tabelas
-                     └─ clean_sales_data
-                     │
-                     ▼
-                 Gold Layer (Materialized Views)
-                     ├─ daily_sales
-                     ├─ store_performance
-                     ├─ customer_lifetime_value
-                     └─ product_category_performance
-                     │
-                     ▼
-              Dashboards / BI / Relatórios
+                     └─ insere dados no schema internal_airbyte
+                           │
+                           ▼
+                     Bronze Layer (Delta Lake)
+                           │
+                           ▼
+                     Databricks / Delta Lake (Silver Layer)
+                           │
+                           ├─ Limpeza: remover pedidos inválidos
+                           ├─ Enriquecimento: joins entre tabelas
+                           └─ clean_sales_data
+                           │
+                           ▼
+                     Gold Layer (Materialized Views)
+                           ├─ daily_sales
+                           ├─ store_performance
+                           ├─ customer_lifetime_value
+                           └─ product_category_performance
+                           │
+                           ▼
+                    Dashboards / BI / Relatórios
+
 
 
 
