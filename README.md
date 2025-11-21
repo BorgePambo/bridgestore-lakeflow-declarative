@@ -11,95 +11,53 @@ O fluxo inclui ingestão de dados, transformação em camadas Silver, e criaçã
 <img width="990" height="281" alt="imagem_etlpng" src="https://github.com/user-attachments/assets/066697b9-f2ed-4ca5-965b-0d3296b4abbc" />
 
 ----
-Visão Geral
+Arquitetura Funcional do Pipeline
 
-Este projeto implementa um pipeline de dados completo para análise de vendas da BridgeStore, usando arquitetura Lakehouse. O objetivo é transformar dados transacionais brutos em métricas de negócios confiáveis para suporte a decisões.
+MySQL (Transacional)
+       │
+       ▼
+   Airbyte (Ingestão)
+       │
+       ▼
+   Bronze Layer (Delta Lake)
+       │
+       ▼
+   Databricks / Delta Lake (Silver Layer)
+       │
+       ├─ Limpeza: remover pedidos inválidos
+       ├─ Enriquecimento: joins entre tabelas
+       └─ clean_sales_data
+       │
+       ▼
+   Gold Layer (Materialized Views)
+       ├─ daily_sales
+       ├─ store_performance
+       ├─ customer_lifetime_value
+       └─ product_category_performance
+       │
+       ▼
+Dashboards / BI / Relatórios
 
-🏗️ Arquitetura Funcional do Pipeline
 
-O fluxo de dados segue 3 camadas principais e utiliza ferramentas específicas para cada etapa:
 
-1. Ingestão (Bronze)
-    
-    Fonte de dados: MySQL transacional (dados de pedidos, clientes, produtos, categorias e lojas)
-    
-    Ferramenta: Airbyte
-    
-    Conecta MySQL ao Databricks.
-    
-    Inferência automática de esquema.
-    
-    Sincronização incremental ou full refresh.
-    
-    Objetivo: replicar dados brutos no Data Lake sem alterações.
+Fluxo Funcional
 
-2. Transformação e Limpeza (Silver)
+   1-Bronze Layer: dados brutos do MySQL replicados via Airbyte.
+    
+   2-Silver Layer:
+        
+        Validação (order_id não nulo, shipped_date >= order_date)
+        
+        Limpeza de duplicatas e inconsistências
+        
+        Criação da tabela clean_sales_data com todas as dimensões e fatos
+    
+   3-Gold Layer: métricas agregadas em materialized views
+        
+        Ex.: daily_sales, store_performance, customer_lifetime_value, product_category_performance
+        
+        Exclui pedidos cancelados ou pendentes para receita
+        
+        Consumo: Dashboards em Databricks SQL ou Power BI
 
-    Ferramenta: Databricks Lakehouse (Delta Lake + Unity Catalog)
-    
-    Operações:
-    
-    Validação de integridade (order_id IS NOT NULL, shipped_date >= order_date)
-    
-    Enriquecimento de dados com joins entre tabelas transacionais.
-    
-    Criação de tabela clean_sales_data (silver) com informações combinadas de:
-    
-    Pedidos
-    
-    Produtos
-    
-    Clientes
-    
-    Lojas
-    
-    Categorias
-    
-    Benefício: camada confiável, pronta para análises e agregações Gold.
 
-3. Agregação e Métricas (Gold)
-
-    Ferramenta: Databricks Materialized Views
-    
-    Objetivo: gerar métricas de negócios diretamente no Lakehouse.
-    
-    Views criadas:
-    
-    daily_sales: vendas diárias (quantidade, receita, pedidos)
-    
-    store_performance: desempenho por loja
-    
-    customer_lifetime_value: valor total gasto por cliente, ticket médio, primeira e última compra
-    
-    product_category_performance: vendas por categoria de produto
-    
-    Filtro importante: pedidos cancelados ou pendentes são excluídos da receita.
-
-⚡ Ferramentas e Tecnologias
-Etapa	Ferramenta / Tecnologia	Função
-Ingestão	Airbyte	Conectar MySQL ao Data Lake, inferir esquema
-Armazenamento	Azure Data Lake (ADLS)	Armazenar arquivos Delta brutos e tratados
-Transformação	Databricks + Delta Lake	Limpeza, validação e joins
-Catalogação	Unity Catalog	Organização de databases e tabelas
-Agregação	Materialized Views (Databricks)	Métricas Gold prontas para análise
-🔗 Fluxo Resumido do Pipeline
-
-MySQL → Airbyte → Bronze
-Dados transacionais brutos armazenados em Delta Lake.
-
-Bronze → Databricks → Silver
-Limpeza, validação e enriquecimento → clean_sales_data.
-
-Silver → Gold
-Materialized Views com métricas de vendas e performance:
-
-daily_sales
-
-store_performance
-
-customer_lifetime_value
-
-product_category_performance
-
-Consumo de dados
-Dashboards em Databricks SQL ou Power BI, relatórios gerenciais e análises de clientes, lojas e produtos.
